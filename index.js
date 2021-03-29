@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const app = require("./app");
-const { IP_SERVER, PORT_DB, PORT_BACKEND, URI_DB } = require("./src/config");
+const { IP_SERVER, PORT_DB, PORT_BACKEND, URI_DB, PORT } = require("./src/config");
 
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
