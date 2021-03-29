@@ -15,7 +15,7 @@ mongoose.connect(
     } else {
       console.log(`La conexión a la base de datos es correcta en el puerto ${PORT_DB}`);
 
-      app.listen(PORT_BACKEND || 5000, () => {
+      app.listen(PORT || 80, () => {
         console.log("######################");
         console.log("###### MONGO DB ######");
         console.log("######################");
