@@ -78,6 +78,7 @@ const RecetaSchema = new Schema({
         ref: "Usuario",
         required: true,
       },
+      avatarImage: String,
       content: String,
       likes: Number,
       dislikes: Number
