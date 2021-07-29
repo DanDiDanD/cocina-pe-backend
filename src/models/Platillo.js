@@ -81,7 +81,11 @@ const RecetaSchema = new Schema({
       avatarImage: String,
       content: String,
       likes: Number,
-      dislikes: Number
+      dislikes: Number,
+      valoradores: {
+        positivos: [String],
+        negativos: [String]
+      }
     },
   ],
   ingredientes: [
