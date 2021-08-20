@@ -84,8 +84,8 @@ const RecetaSchema = new Schema({
       dislikes: Number,
       valoradores: {
         positivos: [String],
-        negativos: [String]
-      }
+        negativos: [String],
+      },
     },
   ],
   ingredientes: [
@@ -111,6 +111,18 @@ const RecetaSchema = new Schema({
       },
     },
   ],
+  likes: {
+    type: Number,
+    default: 0
+  },
+  dislikes: {
+    type: Number,
+    default: 0
+  },
+  valoradores: {
+    positivos: [String],
+    negativos: [String],
+  },
 });
 
 const PlatilloSchema = new Schema({
