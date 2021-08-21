@@ -65,6 +65,10 @@ const UsuarioSchema = new Schema({
         type: Boolean,
         default: false
     },
+    expiret:{
+        type: Date,
+        default: Date.now,
+    },
     url_avatar:{
         type: String,
         default: ''
