@@ -6,6 +6,12 @@ const auth = require("../middleware/auth");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config/index");
 
+const passwordCod = () => {
+  /* return crypto.randomBytes(2).toString('hex'); */
+  var val = Math.floor(1000 + Math.random() * 9000);
+  return val.toString();
+}
+
 router.post(
   "/",
   [
@@ -87,7 +93,7 @@ router.post(
 );
 
 router.get(
-  "/", [auth], 
+  "/", /* [auth],  */
   async (req, res) => {
     const listarUsuarios = await usuarioService.listarUsuarios()
     if(listarUsuarios instanceof Error ){
@@ -163,6 +169,25 @@ router.get(
       res.status(200).json({ code: 200, data: [usuario], message: "Usuario: "});
     }
   }
+);
+
+router.get(
+  "/getByemail/:email",
+  async (req, res) => {
+    console.log(req.params.email)
+
+    
+  const usuario = await usuarioService.obtenerUsuarioByEmail(req.params.email);
+  if(usuario === false){
+    res.status(400).json({ code: 400, data: [], message: "No se encontró la usuario." });
+  } else if (usuario instanceof Error ){
+    res.status(500).json({ code: 500, data: [], message: "Error al buscar usuario." });
+  } else {
+    usuario.recoverycode = passwordCod()
+    await usuario.save()
+    res.status(200).json({ code: 200, data: usuario, message: "Usuario: "});
+  }
+}
 );
 
 router.put(
