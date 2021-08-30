@@ -116,6 +116,34 @@ router.get(
   }
 );
 
+router.put(
+  "/premium/:id", [auth], 
+  async (req,res) => {
+    const existeEmpleado = await usuarioService.usuarioPremium(req.params.id,req.body);
+    if (existeEmpleado == 'no encontrado') {
+      res.status(400).json({ code: 400, data: [], message: "Tarjeta rechazada." });
+    } else if (existeEmpleado instanceof Error ){
+      res.status(500).json({ code: 500, data: [], message: "Error al buscar usuario." });
+    } else {
+      res.status(200).json({ code: 200, data: [], message: "Bienvenido a la comunidad Cocina Pe :) "});
+    }
+  }
+);
+
+// router.get(
+//   "/premium/quitar", [auth], 
+//   async (req,res) => {
+//     const existeEmpleado = await usuarioService.usuarioPremium(req.params.id);
+//     if (existeEmpleado == 'no encontrado') {
+//       res.status(400).json({ code: 400, data: [], message: "Usuario no encontrado." });
+//     } else if (existeEmpleado instanceof Error ){
+//       res.status(500).json({ code: 500, data: [], message: "Error al buscar usuario." });
+//     } else {
+//       res.status(200).json({ code: 200, data: [], message: "Usuario normal: "});
+//     }
+//   }
+// );
+
 router.get(
   "/activo/:activo", [auth], 
   async (req, res) => {

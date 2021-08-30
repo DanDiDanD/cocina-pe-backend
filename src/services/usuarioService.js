@@ -212,4 +212,35 @@ exports.modificarUsuario = async (params, id) => {
     console.log("Error: ", error.message);
     return error;
   }
-};
+}
+
+
+exports.usuarioPremium = async(id, params) => {
+  const objeto = params;
+  try{
+    const updated = await Usuario.findByIdAndUpdate(id, {is_premium: true});
+    if(updated){
+        return updated
+    }else{
+        return false
+    }
+  }catch(error){
+      console.log('Error: ', error.message);
+      return error
+  }
+}
+
+exports.quitarUsuarioPremium = async(id) => {
+  const objeto = params;
+  try{
+    const updated = await Usuario.findByIdAndUpdate(id, {is_premium: false});
+    if(updated){
+        return updated
+    }else{
+        return false
+    }
+  }catch(error){
+      console.log('Error: ', error.message);
+      return error
+  }
+}
