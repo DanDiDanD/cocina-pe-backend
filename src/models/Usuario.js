@@ -76,6 +76,10 @@ const UsuarioSchema = new Schema({
     recetas_favoritas: {
         type: [String],
         required: false
+    },
+    recoverycode: {
+        type: String,
+        default: null
     }
 })
 
