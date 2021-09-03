@@ -1,7 +1,10 @@
 const Usuario = require("../models/Usuario");
 const bcrypt = require("bcrypt");
+const Stripe = require('stripe')
 const { empleadoAsistencia } = require("./empleadoService");
 const { mapReduce } = require("../models/Usuario");
+
+const stripe = new Stripe("sk_test_51JTEFaC7aH81BBFsuHfTD6SlQKNM2luoddpCRAkQKWjGCN78GfNp1kqw9WUNRNFGzzQyQWIbyZRJE4m2giGPtMkn00UQufPOhT")
 
 exports.registrarUsuario = async (params) => {
   const usuario = new Usuario(params);
@@ -205,18 +208,31 @@ exports.modificarUsuario = async (params, id) => {
 }
 
 
-exports.usuarioPremium = async(id, params) => {
-  const objeto = params;
+exports.usuarioPremium = async(idUsuario, params) => {
+  const {id,amount,description} = params;
+  console.log(params)
   try{
-    const updated = await Usuario.findByIdAndUpdate(id, {is_premium: true});
+    const payment = await stripe.paymentIntents.create({
+      amount: amount,
+      currency: "USD",
+      description: description,
+      payment_method: id,
+      confirm: true
+    })
+
+    // console.log(payment)
+    // return true;
+    const updated = await Usuario.findByIdAndUpdate(idUsuario, {is_premium: true});
     if(updated){
-        return updated
+        return true
     }else{
         return false
     }
+
+
   }catch(error){
       console.log('Error: ', error.message);
-      return error
+      return {message: error}
   }
 }
 
