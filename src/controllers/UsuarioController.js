@@ -124,8 +124,10 @@ router.put(
       res.status(400).json({ code: 400, data: [], message: "Tarjeta rechazada." });
     } else if (existeEmpleado instanceof Error ){
       res.status(500).json({ code: 500, data: [], message: "Error al buscar usuario." });
-    } else {
+    } else if (existeEmpleado == true){
       res.status(200).json({ code: 200, data: [], message: "Bienvenido a la comunidad Cocina Pe :) "});
+    } else{
+      res.status(400).json({ code: 400, data: [], message: existeEmpleado.message.raw.message })
     }
   }
 );
